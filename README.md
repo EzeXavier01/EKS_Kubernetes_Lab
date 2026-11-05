@@ -8,7 +8,7 @@ the platform around it.
 Built on an AWS free-plan account in `eu-north-1` (Stockholm), which added real constraints worth
 reading about in [What went wrong and how I fixed it](#what-went-wrong-and-how-i-fixed-it).
 
-![Network layout of the nginx-lab cluster](docs/network.svg)
+![Network layout of the nginx-lab cluster: VPC, subnets, nodes, pods, load balancer and route tables](docs/network.png)
 
 ## What it covers
 
@@ -29,9 +29,9 @@ reading about in [What went wrong and how I fixed it](#what-went-wrong-and-how-i
 A separate piece of AWS work lives in [`lambda/`](lambda): a Python Lambda that deletes stale EBS
 snapshots, with a least-privilege IAM policy.
 
-## Architecture
+## How the pieces fit
 
-![Cluster architecture](docs/architecture.svg)
+The diagram above is the real layout of the cluster as built. ([SVG version](docs/network.svg))
 
 - Each nginx and CoreDNS pod gets its **own VPC IP address** from the AWS VPC CNI (`aws-node`), separate from its node's IP.
 - `aws-node`, `kube-proxy`, Fluent Bit and the CloudWatch agent run as **DaemonSets**, one pod per node, and use the node's network.
@@ -108,7 +108,7 @@ iam/pod-identity-trust.json      trust policy for EKS Pod Identity roles
 karpenter/karpenter-nodepool.yaml  EC2NodeClass and NodePool (kept for reference)
 load-test/load.js                k6 ramp to 50 virtual users
 lambda/                          stale EBS snapshot clean-up Lambda and its IAM policy
-docs/                            architecture and network diagrams
+docs/                            network diagram (PNG and SVG)
 ```
 
 The Karpenter CloudFormation template comes from the
