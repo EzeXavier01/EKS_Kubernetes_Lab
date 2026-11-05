@@ -1,0 +1,160 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 780" role="img" aria-label="Network diagram of the nginx-lab EKS cluster VPC"><style>
+svg{
+  --bg:#ffffff; --text:#1f1e1d; --muted:#5f5e5a; --line:#888780; --soft:#b4b2a9;
+  --box-f:#f7f6f2; --box-s:#888780;
+  --coral-f:#FAECE7; --coral-s:#993C1D; --coral-t:#712B13;
+  --gray-f:#F1EFE8; --gray-s:#5F5E5A; --gray-t:#444441;
+  --purple-f:#EEEDFE; --purple-s:#534AB7; --purple-t:#3C3489;
+  --teal-f:#E1F5EE; --teal-s:#0F6E56; --teal-t:#085041;
+  --sg:#BA7517; --sg-t:#854F0B;
+  --accent:#185FA5; --accent-bg:#E6F1FB; --flow:#D85A30;
+}
+
+body{margin:0;padding:24px 16px;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:1100px;margin:0 auto}
+h1{font-size:20px;font-weight:500;margin:0 0 6px}
+.sub{font-size:14px;color:var(--muted);margin:0 0 14px}
+.bar{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+button{font:inherit;font-size:14px;padding:6px 12px;border-radius:8px;border:1px solid var(--soft);background:transparent;color:var(--text);cursor:pointer}
+button.on{border-color:var(--accent);background:var(--accent-bg);color:var(--accent)}
+svg{width:100%;height:auto;display:block}
+.th{font-size:14px;font-weight:500;fill:var(--text)}
+.ts{font-size:12px;fill:var(--muted)}
+.mono{font-family:ui-monospace,Consolas,monospace;font-size:12px;fill:var(--text)}
+.box{fill:var(--box-f);stroke:var(--box-s)}
+.c-coral rect{fill:var(--coral-f);stroke:var(--coral-s)} .c-coral text{fill:var(--coral-t)}
+.c-gray rect{fill:var(--gray-f);stroke:var(--gray-s)} .c-gray text{fill:var(--gray-t)}
+.c-purple rect{fill:var(--purple-f);stroke:var(--purple-s)} .c-purple .th{fill:var(--purple-t)} .c-purple .ts{fill:var(--purple-t);opacity:.85}
+.c-teal rect{fill:var(--teal-f);stroke:var(--teal-s)} .c-teal .th,.c-teal .mono{fill:var(--teal-t)} .c-teal .ts{fill:var(--teal-t);opacity:.85}
+.sg{fill:none;stroke:var(--sg);stroke-width:1.2;stroke-dasharray:6 3}
+.sgt{font-size:12px;fill:var(--sg-t)}
+.fl{fill:none;stroke:var(--line);stroke-width:1}
+.fl.flow{stroke:var(--flow);stroke-width:2.2;stroke-dasharray:6 4}
+[data-f]{transition:opacity .3s}
+
+@keyframes dash{to{stroke-dashoffset:-20}}
+#cap{font-size:15px;color:var(--muted);line-height:1.6;min-height:100px;margin:10px 0}
+.legend{display:flex;flex-wrap:wrap;gap:16px;font-size:13px;color:var(--muted)}
+.sw{display:inline-block;width:11px;height:11px;border-radius:2px;vertical-align:-1px;margin-right:6px}
+</style><rect width="100%" height="100%" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+
+<g data-f="web kubectl"><rect class="box" x="30" y="24" width="170" height="56" rx="8" stroke-width="0.6"/>
+<text class="th" x="115" y="43" text-anchor="middle" dominant-baseline="central">Your laptop</text>
+<text class="ts" x="115" y="62" text-anchor="middle" dominant-baseline="central">browser, k6, kubectl</text></g>
+
+<g data-f="out"><rect class="box" x="460" y="24" width="160" height="54" rx="8" stroke-width="0.6"/>
+<text class="th" x="540" y="42" text-anchor="middle" dominant-baseline="central">Docker Hub</text>
+<text class="ts" x="540" y="61" text-anchor="middle" dominant-baseline="central">nginx:1.27 image</text></g>
+
+<rect x="10" y="110" width="980" height="650" rx="16" fill="none" stroke="var(--soft)" stroke-width="0.8" stroke-dasharray="4 4"/>
+<text class="th" x="26" y="128" dominant-baseline="central">AWS region eu-north-1</text>
+
+<rect x="30" y="150" width="700" height="592" rx="12" fill="none" stroke="var(--line)" stroke-width="0.9"/>
+<text class="th" x="46" y="172" dominant-baseline="central">VPC 10.0.0.0/16</text>
+<text class="sgt" x="714" y="172" text-anchor="end" dominant-baseline="central" data-f="fw">Default NACL: allow all, on all 6 subnets</text>
+<text class="ts" x="860" y="174" text-anchor="middle" dominant-baseline="central">Outside your VPC</text>
+
+<g data-f="web out"><rect class="box" x="305" y="132" width="160" height="36" rx="6" stroke-width="0.6"/>
+<text class="th" x="385" y="150" text-anchor="middle" dominant-baseline="central">Internet gateway</text></g>
+
+<g class="c-teal" data-f="routes out web"><rect x="46" y="190" width="330" height="86" rx="8" stroke-width="0.6"/>
+<text class="th" x="60" y="208" dominant-baseline="central">Public route table</text>
+<text class="ts" x="60" y="226" dominant-baseline="central">used by public 1a, 1b and 1c</text>
+<text class="mono" x="60" y="246" dominant-baseline="central">10.0.0.0/16  →  local</text>
+<text class="mono" x="60" y="264" dominant-baseline="central">0.0.0.0/0    →  internet gateway</text></g>
+<g class="c-teal" data-f="routes cp"><rect x="394" y="190" width="320" height="86" rx="8" stroke-width="0.6"/>
+<text class="th" x="408" y="208" dominant-baseline="central">3 private route tables</text>
+<text class="ts" x="408" y="226" dominant-baseline="central">one per private subnet</text>
+<text class="mono" x="408" y="246" dominant-baseline="central">10.0.0.0/16  →  local</text>
+<text class="ts" x="408" y="264" dominant-baseline="central">no internet route (no NAT gateway)</text></g>
+
+<g data-f="web fw"><rect class="box" x="46" y="292" width="668" height="58" rx="8" stroke-width="0.6"/>
+<text class="th" x="60" y="305" dominant-baseline="central">Network load balancer: internet-facing, no security group, cross-zone off</text></g>
+<g class="c-gray" data-f="web"><rect x="92" y="318" width="120" height="24" rx="4" stroke-width="0.6"/><text class="ts" x="152" y="330" text-anchor="middle" dominant-baseline="central">NLB node 1a</text></g>
+<g class="c-gray" data-f="web"><rect x="320" y="318" width="120" height="24" rx="4" stroke-width="0.6" stroke-dasharray="3 3"/><text class="ts" x="380" y="330" text-anchor="middle" dominant-baseline="central">NLB node 1b</text></g>
+<g class="c-gray" data-f="web"><rect x="548" y="318" width="120" height="24" rx="4" stroke-width="0.6"/><text class="ts" x="608" y="330" text-anchor="middle" dominant-baseline="central">NLB node 1c</text></g>
+
+<rect x="46" y="366" width="212" height="244" rx="10" fill="none" stroke="var(--line)" stroke-width="0.7" stroke-dasharray="3 3"/>
+<text class="th" x="58" y="382" dominant-baseline="central">Public subnet 1a</text>
+<text class="ts" x="58" y="399" dominant-baseline="central">10.0.32.0/19</text>
+<rect x="274" y="366" width="212" height="244" rx="10" fill="none" stroke="var(--line)" stroke-width="0.7" stroke-dasharray="3 3"/>
+<text class="th" x="286" y="382" dominant-baseline="central">Public subnet 1b</text>
+<text class="ts" x="286" y="399" dominant-baseline="central">10.0.64.0/19</text>
+<rect x="502" y="366" width="212" height="244" rx="10" fill="none" stroke="var(--line)" stroke-width="0.7" stroke-dasharray="3 3"/>
+<text class="th" x="514" y="382" dominant-baseline="central">Public subnet 1c</text>
+<text class="ts" x="514" y="399" dominant-baseline="central">10.0.0.0/19</text>
+
+<rect class="sg" x="52" y="408" width="200" height="178" rx="10" data-f="fw"/>
+<rect class="box" x="56" y="412" width="192" height="170" rx="8" stroke-width="0.6"/>
+<text class="th" x="68" y="430" dominant-baseline="central">Node ip-10-0-37-88</text>
+<text class="ts" x="68" y="447" dominant-baseline="central">Public IP (ephemeral)</text>
+<g class="c-coral" data-f="web"><rect x="66" y="460" width="84" height="24" rx="4" stroke-width="0.6"/><text class="ts" x="108" y="472" text-anchor="middle" dominant-baseline="central">nginx</text></g>
+<g class="c-gray"><rect x="156" y="460" width="84" height="24" rx="4" stroke-width="0.6"/><text class="ts" x="198" y="472" text-anchor="middle" dominant-baseline="central">coredns</text></g>
+<g class="c-gray"><rect x="66" y="488" width="84" height="24" rx="4" stroke-width="0.6"/><text class="ts" x="108" y="500" text-anchor="middle" dominant-baseline="central">aws-node</text></g>
+<g class="c-gray"><rect x="156" y="488" width="84" height="24" rx="4" stroke-width="0.6"/><text class="ts" x="198" y="500" text-anchor="middle" dominant-baseline="central">kube-proxy</text></g>
+<g class="c-gray"><rect x="66" y="516" width="84" height="24" rx="4" stroke-width="0.6" stroke-dasharray="3 3"/><text class="ts" x="108" y="528" text-anchor="middle" dominant-baseline="central">fluent-bit</text></g>
+<g class="c-gray"><rect x="156" y="516" width="84" height="24" rx="4" stroke-width="0.6" stroke-dasharray="3 3"/><text class="ts" x="198" y="528" text-anchor="middle" dominant-baseline="central">cw-agent</text></g>
+<g class="c-gray"><rect x="66" y="544" width="84" height="24" rx="4" stroke-width="0.6" stroke-dasharray="3 3"/><text class="ts" x="108" y="556" text-anchor="middle" dominant-baseline="central">pod-identity</text></g>
+<text class="sgt" x="66" y="598" dominant-baseline="central" data-f="fw">eks-cluster-sg</text>
+
+<rect x="284" y="412" width="192" height="58" rx="8" fill="none" stroke="var(--soft)" stroke-width="0.8" stroke-dasharray="5 4"/>
+<text class="ts" x="380" y="433" text-anchor="middle" dominant-baseline="central">No node in 1b yet</text>
+<text class="ts" x="380" y="451" text-anchor="middle" dominant-baseline="central">Karpenter may add one here</text>
+
+<rect class="sg" x="508" y="408" width="200" height="178" rx="10" data-f="fw"/>
+<rect class="box" x="512" y="412" width="192" height="170" rx="8" stroke-width="0.6"/>
+<text class="th" x="524" y="430" dominant-baseline="central">Node ip-10-0-2-176</text>
+<text class="ts" x="524" y="447" dominant-baseline="central">Public IP (ephemeral)</text>
+<g class="c-coral" data-f="web"><rect x="522" y="460" width="84" height="24" rx="4" stroke-width="0.6"/><text class="ts" x="564" y="472" text-anchor="middle" dominant-baseline="central">nginx</text></g>
+<g class="c-gray"><rect x="612" y="460" width="84" height="24" rx="4" stroke-width="0.6"/><text class="ts" x="654" y="472" text-anchor="middle" dominant-baseline="central">coredns</text></g>
+<g class="c-gray"><rect x="522" y="488" width="84" height="24" rx="4" stroke-width="0.6"/><text class="ts" x="564" y="500" text-anchor="middle" dominant-baseline="central">aws-node</text></g>
+<g class="c-gray"><rect x="612" y="488" width="84" height="24" rx="4" stroke-width="0.6"/><text class="ts" x="654" y="500" text-anchor="middle" dominant-baseline="central">kube-proxy</text></g>
+<g class="c-gray"><rect x="522" y="516" width="84" height="24" rx="4" stroke-width="0.6" stroke-dasharray="3 3"/><text class="ts" x="564" y="528" text-anchor="middle" dominant-baseline="central">fluent-bit</text></g>
+<g class="c-gray"><rect x="612" y="516" width="84" height="24" rx="4" stroke-width="0.6" stroke-dasharray="3 3"/><text class="ts" x="654" y="528" text-anchor="middle" dominant-baseline="central">cw-agent</text></g>
+<g class="c-gray"><rect x="522" y="544" width="84" height="24" rx="4" stroke-width="0.6" stroke-dasharray="3 3"/><text class="ts" x="564" y="556" text-anchor="middle" dominant-baseline="central">pod-identity</text></g>
+<text class="sgt" x="522" y="598" dominant-baseline="central" data-f="fw">eks-cluster-sg</text>
+
+<rect x="46" y="626" width="212" height="100" rx="10" fill="none" stroke="var(--soft)" stroke-width="0.7" stroke-dasharray="2 4"/>
+<text class="th" x="58" y="642" dominant-baseline="central">Private subnet 1a</text>
+<text class="ts" x="58" y="659" dominant-baseline="central">10.0.128.0/19</text>
+<rect x="274" y="626" width="212" height="100" rx="10" fill="none" stroke="var(--soft)" stroke-width="0.7" stroke-dasharray="2 4"/>
+<text class="th" x="286" y="642" dominant-baseline="central">Private subnet 1b</text>
+<text class="ts" x="286" y="659" dominant-baseline="central">10.0.160.0/19</text>
+<rect x="502" y="626" width="212" height="100" rx="10" fill="none" stroke="var(--soft)" stroke-width="0.7" stroke-dasharray="2 4"/>
+<text class="th" x="514" y="642" dominant-baseline="central">Private subnet 1c</text>
+<text class="ts" x="514" y="659" dominant-baseline="central">10.0.96.0/19</text>
+<text class="ts" x="608" y="680" text-anchor="middle" dominant-baseline="central">Nothing here</text>
+
+<g class="c-purple" data-f="cp fw"><rect x="62" y="672" width="180" height="40" rx="6" stroke-width="0.6"/>
+<text class="ts" x="152" y="684" text-anchor="middle" dominant-baseline="central">Control plane ENI</text>
+<text class="ts" x="152" y="701" text-anchor="middle" dominant-baseline="central">10.0.135.238</text></g>
+<g class="c-purple" data-f="cp fw"><rect x="290" y="672" width="180" height="40" rx="6" stroke-width="0.6"/>
+<text class="ts" x="380" y="684" text-anchor="middle" dominant-baseline="central">Control plane ENI</text>
+<text class="ts" x="380" y="701" text-anchor="middle" dominant-baseline="central">10.0.167.46</text></g>
+
+<g class="c-purple" data-f="cp kubectl"><rect x="750" y="190" width="220" height="76" rx="8" stroke-width="0.6"/>
+<text class="th" x="860" y="208" text-anchor="middle" dominant-baseline="central">EKS control plane</text>
+<text class="ts" x="860" y="227" text-anchor="middle" dominant-baseline="central">API server, etcd, scheduler</text>
+<text class="ts" x="860" y="245" text-anchor="middle" dominant-baseline="central">Endpoint: public and private</text></g>
+<g class="c-purple" data-f="out"><rect x="750" y="300" width="220" height="56" rx="8" stroke-width="0.6"/>
+<text class="th" x="860" y="318" text-anchor="middle" dominant-baseline="central">CloudWatch</text>
+<text class="ts" x="860" y="338" text-anchor="middle" dominant-baseline="central">Logs and Container Insights</text></g>
+<g data-f="other"><rect x="750" y="420" width="220" height="96" rx="10" fill="none" stroke="var(--line)" stroke-width="0.8" stroke-dasharray="5 4"/>
+<text class="th" x="860" y="440" text-anchor="middle" dominant-baseline="central">Default VPC</text>
+<text class="ts" x="860" y="458" text-anchor="middle" dominant-baseline="central">172.31.0.0/16, 3 subnets</text>
+<text class="ts" x="860" y="476" text-anchor="middle" dominant-baseline="central">No peering, no shared route</text>
+<text class="ts" x="860" y="494" text-anchor="middle" dominant-baseline="central">Can't reach nginx-lab</text></g>
+
+<path class="fl" data-f="web" d="M200 52 L385 52 L385 129" marker-end="url(#arrow)"/>
+<path class="fl" data-f="web" d="M385 168 L385 289" marker-end="url(#arrow)"/>
+<path class="fl" data-f="web" d="M196 342 L196 405" marker-end="url(#arrow)"/>
+<path class="fl" data-f="web" d="M652 342 L652 405" marker-end="url(#arrow)"/>
+<path class="fl" data-f="web" d="M251 576 L505 576" marker-start="url(#arrow)" marker-end="url(#arrow)" stroke-dasharray="4 4"/>
+<path class="fl" data-f="out" d="M704 440 L722 440 L722 158 L468 158" marker-end="url(#arrow)"/>
+<path class="fl" data-f="out" d="M425 132 L425 100 L540 100 L540 81" marker-end="url(#arrow)"/>
+<path class="fl" data-f="out" d="M465 140 L736 140 L736 328 L747 328" marker-end="url(#arrow)"/>
+<path class="fl" data-f="cp" d="M230 586 L230 669" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+<path class="fl" data-f="cp" d="M470 692 L744 692 L744 240 L747 240" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+<path class="fl" data-f="kubectl" d="M115 24 L115 12 L860 12 L860 187" marker-end="url(#arrow)"/>
+</svg>

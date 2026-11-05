@@ -1,0 +1,6 @@
+# AWS's own Karpenter CloudFormation template is downloaded at deploy time, not committed
+karpenter-cfn.yaml
+.kube/
+*.pem
+.env
+__pycache__/

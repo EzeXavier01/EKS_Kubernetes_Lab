@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 656" role="img" aria-label="EKS architecture diagram"><style>
+svg{
+  --bg:#ffffff; --text:#1f1e1d; --muted:#5f5e5a; --line:#888780; --soft:#b4b2a9;
+  --box-f:#f7f6f2; --box-s:#888780;
+  --coral-f:#FAECE7; --coral-s:#993C1D; --coral-t:#712B13;
+  --gray-f:#F1EFE8; --gray-s:#5F5E5A; --gray-t:#444441;
+  --purple-f:#EEEDFE; --purple-s:#534AB7; --purple-t:#3C3489;
+  --sg:#BA7517; --sg-t:#854F0B;
+  --accent:#185FA5; --accent-bg:#E6F1FB; --flow:#D85A30;
+}
+
+body{margin:0;padding:24px 16px;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:900px;margin:0 auto}
+h1{font-size:20px;font-weight:500;margin:0 0 16px}
+.bar{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+button{font:inherit;font-size:14px;padding:6px 12px;border-radius:8px;border:1px solid var(--soft);background:transparent;color:var(--text);cursor:pointer}
+button.on{border-color:var(--accent);background:var(--accent-bg);color:var(--accent)}
+svg{width:100%;height:auto;display:block}
+.th{font-size:14px;font-weight:500;fill:var(--text)}
+.ts{font-size:12px;fill:var(--muted)}
+.box{fill:var(--box-f);stroke:var(--box-s)}
+.c-coral rect{fill:var(--coral-f);stroke:var(--coral-s)} .c-coral text{fill:var(--coral-t)}
+.c-gray rect{fill:var(--gray-f);stroke:var(--gray-s)} .c-gray text{fill:var(--gray-t)}
+.c-purple rect{fill:var(--purple-f);stroke:var(--purple-s)} .c-purple .th{fill:var(--purple-t)} .c-purple .ts{fill:var(--purple-t);opacity:.85}
+.sg{fill:none;stroke:var(--sg);stroke-width:1.2;stroke-dasharray:6 3}
+.sgt{font-size:12px;fill:var(--sg-t)}
+.nacl rect{fill:var(--gray-f);stroke:var(--gray-s);stroke-width:.6}
+.nacl text{font-size:12px;fill:var(--gray-t)}
+.fl{fill:none;stroke:var(--line);stroke-width:1}
+.fl.flow{stroke:var(--flow);stroke-width:2;stroke-dasharray:6 4}
+[data-f]{transition:opacity .3s}
+
+@keyframes dash{to{stroke-dashoffset:-20}}
+#cap{font-size:15px;color:var(--muted);line-height:1.6;min-height:76px;margin:10px 0}
+.legend{display:flex;flex-wrap:wrap;gap:16px;font-size:13px;color:var(--muted)}
+.sw{display:inline-block;width:11px;height:11px;border-radius:2px;vertical-align:-1px;margin-right:6px}
+</style><rect width="100%" height="100%" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+
+<g data-f="traffic ctl"><rect class="box" x="40" y="24" width="170" height="52" rx="8" stroke-width="0.6"/>
+<text class="th" x="125" y="42" text-anchor="middle" dominant-baseline="central">Your laptop</text>
+<text class="ts" x="125" y="61" text-anchor="middle" dominant-baseline="central">k6 load test, kubectl</text></g>
+
+<rect x="20" y="100" width="640" height="540" rx="16" fill="none" stroke="var(--soft)" stroke-width="0.8" stroke-dasharray="4 4"/>
+<text class="th" x="36" y="120" dominant-baseline="central">AWS region eu-north-1</text>
+
+<rect x="40" y="132" width="432" height="490" rx="12" fill="none" stroke="var(--line)" stroke-width="0.8"/>
+<text class="th" x="56" y="154" dominant-baseline="central">VPC 10.0.0.0/16</text>
+<text class="ts" x="456" y="154" text-anchor="end" dominant-baseline="central" data-f="net">No NAT gateway, no private subnets</text>
+<text class="ts" x="556" y="152" text-anchor="middle" dominant-baseline="central">Outside your VPC</text>
+
+<g data-f="traffic net"><rect class="box" x="230" y="114" width="150" height="36" rx="6" stroke-width="0.6"/>
+<text class="th" x="305" y="132" text-anchor="middle" dominant-baseline="central">Internet gateway</text></g>
+
+<g data-f="traffic sec"><rect class="sg" x="92" y="170" width="326" height="82" rx="10"/>
+<text class="sgt" x="312" y="241" text-anchor="middle" dominant-baseline="central">sg-lb: port 80 open</text></g>
+<g data-f="traffic"><rect class="box" x="100" y="178" width="310" height="50" rx="8" stroke-width="0.6"/>
+<text class="th" x="255" y="195" text-anchor="middle" dominant-baseline="central">Load balancer (NLB)</text>
+<text class="ts" x="255" y="213" text-anchor="middle" dominant-baseline="central">nginx Service, type LoadBalancer</text></g>
+
+<rect x="54" y="270" width="198" height="336" rx="10" fill="none" stroke="var(--line)" stroke-width="0.6" stroke-dasharray="3 3"/>
+<rect x="262" y="270" width="198" height="336" rx="10" fill="none" stroke="var(--line)" stroke-width="0.6" stroke-dasharray="3 3"/>
+<g class="nacl" data-f="sec"><rect x="58" y="274" width="190" height="22" rx="4"/><text x="68" y="285" dominant-baseline="central">NACL: allow all</text></g>
+<g class="nacl" data-f="sec"><rect x="266" y="274" width="190" height="22" rx="4"/><text x="276" y="285" dominant-baseline="central">NACL: allow all</text></g>
+<text class="ts" x="153" y="578" text-anchor="middle" dominant-baseline="central" data-f="net">Route 0.0.0.0/0 to IGW</text>
+<text class="th" x="153" y="594" text-anchor="middle" dominant-baseline="central">Public subnet, AZ a</text>
+<text class="ts" x="361" y="578" text-anchor="middle" dominant-baseline="central" data-f="net">Route 0.0.0.0/0 to IGW</text>
+<text class="th" x="361" y="594" text-anchor="middle" dominant-baseline="central">Public subnet, AZ b</text>
+
+<rect class="sg" x="62" y="304" width="182" height="124" rx="10" data-f="sec"/>
+<rect class="box" x="66" y="308" width="174" height="116" rx="8" stroke-width="0.6"/>
+<text class="th" x="78" y="324" dominant-baseline="central">Node 1, t3.medium</text>
+<text class="sgt" x="78" y="341" dominant-baseline="central">Public IP, in sg-nodes</text>
+<g class="c-coral" data-f="traffic logs pods"><rect x="76" y="354" width="74" height="26" rx="4" stroke-width="0.6"/><text class="ts" x="113" y="367" text-anchor="middle" dominant-baseline="central">nginx</text></g>
+<g class="c-coral" data-f="traffic logs pods"><rect x="156" y="354" width="74" height="26" rx="4" stroke-width="0.6"/><text class="ts" x="193" y="367" text-anchor="middle" dominant-baseline="central">nginx</text></g>
+<g class="c-gray" data-f="logs"><rect x="76" y="386" width="74" height="26" rx="4" stroke-width="0.6"/><text class="ts" x="113" y="399" text-anchor="middle" dominant-baseline="central">fluent-bit</text></g>
+<g class="c-gray" data-f="metrics"><rect x="156" y="386" width="74" height="26" rx="4" stroke-width="0.6"/><text class="ts" x="193" y="399" text-anchor="middle" dominant-baseline="central">cw-agent</text></g>
+
+<rect class="sg" x="62" y="440" width="182" height="124" rx="10" data-f="sec"/>
+<rect class="box" x="66" y="444" width="174" height="116" rx="8" stroke-width="0.9" stroke-dasharray="5 4"/>
+<text class="th" x="78" y="460" dominant-baseline="central">Node 3 (new)</text>
+<text class="sgt" x="78" y="477" dominant-baseline="central">Added by Karpenter</text>
+<g class="c-coral" data-f="traffic nodes pods"><rect x="76" y="490" width="74" height="26" rx="4" stroke-width="0.6" stroke-dasharray="3 3"/><text class="ts" x="113" y="503" text-anchor="middle" dominant-baseline="central">nginx</text></g>
+<g class="c-coral" data-f="traffic nodes pods"><rect x="156" y="490" width="74" height="26" rx="4" stroke-width="0.6" stroke-dasharray="3 3"/><text class="ts" x="193" y="503" text-anchor="middle" dominant-baseline="central">nginx</text></g>
+<g class="c-gray" data-f="logs nodes"><rect x="76" y="522" width="74" height="26" rx="4" stroke-width="0.6" stroke-dasharray="3 3"/><text class="ts" x="113" y="535" text-anchor="middle" dominant-baseline="central">fluent-bit</text></g>
+<g class="c-gray" data-f="metrics nodes"><rect x="156" y="522" width="74" height="26" rx="4" stroke-width="0.6" stroke-dasharray="3 3"/><text class="ts" x="193" y="535" text-anchor="middle" dominant-baseline="central">cw-agent</text></g>
+
+<rect class="sg" x="270" y="304" width="182" height="156" rx="10" data-f="sec"/>
+<rect class="box" x="274" y="308" width="174" height="148" rx="8" stroke-width="0.6"/>
+<text class="th" x="286" y="324" dominant-baseline="central">Node 2, t3.medium</text>
+<text class="sgt" x="286" y="341" dominant-baseline="central">Public IP, in sg-nodes</text>
+<g class="c-coral" data-f="traffic logs pods"><rect x="284" y="354" width="74" height="26" rx="4" stroke-width="0.6"/><text class="ts" x="321" y="367" text-anchor="middle" dominant-baseline="central">nginx</text></g>
+<g class="c-coral" data-f="traffic logs pods"><rect x="364" y="354" width="74" height="26" rx="4" stroke-width="0.6"/><text class="ts" x="401" y="367" text-anchor="middle" dominant-baseline="central">nginx</text></g>
+<g class="c-gray" data-f="logs"><rect x="284" y="386" width="74" height="26" rx="4" stroke-width="0.6"/><text class="ts" x="321" y="399" text-anchor="middle" dominant-baseline="central">fluent-bit</text></g>
+<g class="c-gray" data-f="metrics"><rect x="364" y="386" width="74" height="26" rx="4" stroke-width="0.6"/><text class="ts" x="401" y="399" text-anchor="middle" dominant-baseline="central">cw-agent</text></g>
+<g class="c-gray" data-f="pods"><rect x="284" y="418" width="74" height="26" rx="4" stroke-width="0.6"/><text class="ts" x="321" y="431" text-anchor="middle" dominant-baseline="central">metrics-srv</text></g>
+<g class="c-gray" data-f="nodes"><rect x="364" y="418" width="74" height="26" rx="4" stroke-width="0.6"/><text class="ts" x="401" y="431" text-anchor="middle" dominant-baseline="central">karpenter</text></g>
+
+<g class="c-purple" data-f="ctl pods nodes"><rect x="486" y="170" width="160" height="56" rx="8" stroke-width="0.6"/>
+<text class="th" x="566" y="188" text-anchor="middle" dominant-baseline="central">EKS control plane</text>
+<text class="ts" x="566" y="208" text-anchor="middle" dominant-baseline="central">API server, HPA</text></g>
+<g class="c-purple" data-f="metrics"><rect x="486" y="290" width="160" height="56" rx="8" stroke-width="0.6"/>
+<text class="th" x="566" y="308" text-anchor="middle" dominant-baseline="central">CloudWatch metrics</text>
+<text class="ts" x="566" y="328" text-anchor="middle" dominant-baseline="central">Container Insights</text></g>
+<g class="c-purple" data-f="logs"><rect x="486" y="390" width="160" height="56" rx="8" stroke-width="0.6"/>
+<text class="th" x="566" y="408" text-anchor="middle" dominant-baseline="central">CloudWatch Logs</text>
+<text class="ts" x="566" y="428" text-anchor="middle" dominant-baseline="central">nginx and pod logs</text></g>
+<g class="c-purple" data-f="logs metrics"><rect x="486" y="490" width="160" height="56" rx="8" stroke-width="0.6"/>
+<text class="th" x="566" y="508" text-anchor="middle" dominant-baseline="central">IAM roles</text>
+<text class="ts" x="566" y="528" text-anchor="middle" dominant-baseline="central">via Pod Identity</text></g>
+
+<path class="fl" data-f="traffic net" d="M210 62 L305 62 L305 111" marker-end="url(#arrow)"/>
+<path class="fl" data-f="traffic" d="M305 150 L305 175" marker-end="url(#arrow)"/>
+<path class="fl" data-f="traffic" d="M226 228 L226 301" marker-end="url(#arrow)"/>
+<path class="fl" data-f="traffic" d="M400 228 L400 301" marker-end="url(#arrow)"/>
+<path class="fl" data-f="traffic" d="M100 203 L46 203 L46 500 L59 500" stroke-dasharray="4 4" marker-end="url(#arrow)"/>
+<path class="fl" data-f="ctl" d="M210 40 L620 40 L620 167" marker-end="url(#arrow)"/>
+<path class="fl" data-f="pods" d="M452 330 L483 214" marker-end="url(#arrow)"/>
+<path class="fl" data-f="metrics" d="M452 360 L483 318" marker-end="url(#arrow)"/>
+<path class="fl" data-f="logs" d="M452 390 L483 414" marker-end="url(#arrow)"/>
+<path class="fl" data-f="logs metrics" d="M486 516 L455 450" marker-end="url(#arrow)"/>
+<path class="fl" data-f="nodes" d="M401 460 L401 500 L247 500" stroke-dasharray="4 4" marker-end="url(#arrow)"/>
+</svg>
